@@ -1,5 +1,6 @@
 # Project to initiate at Django
-Note to run this project 
+To initiate at Django I use the tutorial from [OpenClassroom](https://openclassrooms.com/fr/courses/4425076-decouvrez-le-framework-django)
+* Note to run this project 
 ```bash
 # Create a venv
 ## For linux
