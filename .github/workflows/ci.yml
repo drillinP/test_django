@@ -9,7 +9,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  unittests:
 
     runs-on: ubuntu-latest
 
@@ -39,3 +39,20 @@ jobs:
       run: cd disquaire_project/ && python manage.py migrate
     - name: Run tests
       run: cd disquaire_project/ && python manage.py test
+  
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Install Python requirements
+      run: pip install -r requirements/dev.txt
+
+    - name: Run flake8
+      run: flake8

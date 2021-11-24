@@ -50,7 +50,7 @@ class ContactAdmin(admin.ModelAdmin):
     inlines = [BookingInline,]
 
 class AlbumArtistInline(admin.TabularInline):
-    model = Album.artists.through # the query goes through an intermediate table.
+    model = Album.artists.through  # the query goes through an intermediate table.
     extra = 1
     verbose_name = "Disque"
     verbose_name_plural = "Disques"
