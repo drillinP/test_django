@@ -17,4 +17,7 @@ pip install -r requirements/django.txt
 # Run / migrate server
 ./manage.py migrate
 ./manage.py runserver
+
+# Run tests
+python ./manage.py test
 ```
