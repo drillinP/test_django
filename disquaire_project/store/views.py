@@ -1,6 +1,6 @@
 from django.db.utils import IntegrityError
 from django.shortcuts import render, get_object_or_404
-from .models import Album, Artist, Contact, Booking
+from .models import Album, Contact, Booking
 from .forms import ContactForm, ParagraphErrorList
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
@@ -14,6 +14,7 @@ def index(request):
         'albums': albums
     }
     return render(request, 'store/index.html', context)
+
 
 def listing(request):
     albums_list = Album.objects.filter(available=True)
@@ -33,6 +34,7 @@ def listing(request):
         'paginate': True
     }
     return render(request, 'store/listing.html', context)
+
 
 @transaction.atomic
 def detail(request, album_id):
@@ -64,7 +66,7 @@ def detail(request, album_id):
                         contact = contact.first()
 
                     album = get_object_or_404(Album, id=album_id)
-                    booking = Booking.objects.create(
+                    Booking.objects.create(
                         contact=contact,
                         album=album
                     )
@@ -98,7 +100,7 @@ def search(request):
     if not albums.exists():
         albums = Album.objects.filter(artists__name__icontains=query)
 
-    title = "Résultats pour la requête %s"%query
+    title = "Résultats pour la requête %s" % query
     context = {
         'albums': albums,
         'title': title

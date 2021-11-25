@@ -4,12 +4,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from .models import Booking, Contact, Album, Artist
 
+
 class AdminURLMixin(object):
     def get_admin_url(self, obj):
         content_type = ContentType.objects.get_for_model(obj.__class__)
         return reverse("admin:store_%s_change" % (
             content_type.model),
             args=(content_type.id,))
+
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin, AdminURLMixin):
@@ -28,6 +30,7 @@ class BookingAdmin(admin.ModelAdmin, AdminURLMixin):
         url = self.get_admin_url(booking.album)
         return mark_safe("<a href='{}'>{}</a>".format(url, booking.album.title))
 
+
 class BookingInline(admin.TabularInline, AdminURLMixin):
     model = Booking
     extra = 0
@@ -45,9 +48,11 @@ class BookingInline(admin.TabularInline, AdminURLMixin):
 
     album_link.short_description = "Album"
 
+
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    inlines = [BookingInline,]
+    inlines = [BookingInline, ]
+
 
 class AlbumArtistInline(admin.TabularInline):
     model = Album.artists.through  # the query goes through an intermediate table.
@@ -55,11 +60,12 @@ class AlbumArtistInline(admin.TabularInline):
     verbose_name = "Disque"
     verbose_name_plural = "Disques"
 
+
 @admin.register(Artist)
 class ArtistAdmin(admin.ModelAdmin):
-    inlines = [AlbumArtistInline,]
+    inlines = [AlbumArtistInline, ]
+
 
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ['reference', 'title']
-
