@@ -7,7 +7,8 @@ class ParagraphErrorList(ErrorList):
         return self.as_divs()
 
     def as_divs(self):
-        if not self: return ''
+        if not self: 
+            return ''
         return '<div class="errorlist">%s</div>' % ''.join(['<p class="small error">%s</p>' % e for e in self])
 
 
